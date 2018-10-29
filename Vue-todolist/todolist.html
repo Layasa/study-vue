@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title></title>
+		<link rel="stylesheet" href="css/todolist.css" />
+		<script src="js/vue.js"></script>
+	</head>
+
+	<body>
+		<header>
+			<div id="wrap">
+				<div class="Todo">
+					<label for="content">Todolist</label>
+					<input type="text" autocomplete="off" v-model="content" placeholder="完成后请勾选并删除" id="content"/>
+					<button type="button" @click="add">添加</button>
+				</div>
+
+				<div class="time">	
+					<span>待办事项:{{wait}}</span>
+					<span>已完成:{{done}}</span>
+					<div v-for="(item,index) in List">						
+						<input type="checkbox" v-model="checkItem" :value="index"/>
+						<p>{{item.content}}</p>
+						<p>
+							<time>{{item.time}}</time>
+						</p>
+					</div>
+				</div>
+				<div class="del">
+					<button type="button" @click="del">删除</button>
+				</div>
+				<div class="finsh">
+					<p>历史记录:</p>
+					<div v-for="item in nodeList">						
+						<p>{{item.content}}</p>
+						<p>
+							<time>{{item.time}}</time>
+						</p>
+					</div>
+				</div>
+			</div>
+		</header>
+		<script>
+			Vue.prototype.getNowFormatDate = function() {
+				var date = new Date();
+				var seperator1 = "-";
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var strDate = date.getDate();
+				var hour=date.getHours();
+				var Min=date.getMinutes();
+				if(month >= 1 && month <= 9) {
+					month = "0" + month;
+				}
+				if(strDate >= 0 && strDate <= 9) {
+					strDate = "0" + strDate;
+				}
+				if(hour >= 0 && hour <= 9) {
+					hour = "0" + hour;
+				}
+				if(Min >= 0 && Min <= 9) {
+					Min = "0" + Min;
+				}
+				var currentdate = year + seperator1 + month + seperator1 + strDate+"   "+hour+":"+Min;
+				return currentdate;
+			}
+
+			new Vue({
+				el: "#wrap",				        
+				data: {
+					List:JSON.parse(localStorage.getItem("newArr")) || [],
+					nodeList:JSON.parse(localStorage.getItem("oldArr")) || [],
+					content: "",
+					time: "",
+					checkItem:[]
+				}, 
+				computed:{
+					wait:function(){
+						return this.List.length
+					},
+					done:function(){
+						return this.nodeList.length
+					}
+				},
+				methods: {
+					add: function() {
+						if (this.content=="") {
+							alert('清单不能为空')
+							return
+						}
+						var obj = {
+							content: this.content,								
+							time:this.getNowFormatDate()
+						}
+						this.List.push(obj)
+						localStorage.setItem("newArr", JSON.stringify(this.List))
+						this.content = ""
+					},
+					del(){
+						if(this.checkItem.length==0){
+							alert("请勾选")
+						}else {
+							var arr = []
+							var len = this.List.length
+							for (var i=0;i<len;i++) {
+								if(this.checkItem.indexOf(i)>=0){
+									this.List[i].time=this.getNowFormatDate()
+									this.nodeList.push(this.List[i])								    
+								}else{
+									arr.push(this.List[i])
+								}
+							}
+							this.List = arr
+							this.checkItem = []
+							localStorage.setItem("newArr", JSON.stringify(this.List))
+						    localStorage.setItem("oldArr", JSON.stringify(this.nodeList))
+						}
+					}
+				
+				}
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,89 @@
+*{margin: 0;padding: 0;}
+/*header*/
+header{
+    height:50px;
+    background: #323232;
+}
+/*Todo*/
+#wrap .Todo{
+    width:600px;
+    margin: 0 auto;
+}
+#wrap .Todo label{
+    float: left;
+    width: 100px;
+    line-height: 50px;
+    color: #DDD;
+    font-size: 24px;
+    cursor: pointer;
+}
+#wrap .Todo input{
+    width: 60%;
+    height: 24px;
+    margin:12px 0 0 40px;
+    text-indent: 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.24), 0 1px 6px rgba(0,0,0,0.45) inset;
+    border: none;
+}
+#wrap .Todo button{
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background:#DDD;
+    color: #195888;
+    border: none;
+    margin-left:10px;
+    cursor: pointer;
+}
+/*finsh*/
+.finsh div{
+	margin-top:10px;
+}
+/*time*/
+#wrap .time{
+	clear: both;
+	width: 600px;
+	margin: 0 auto;
+	margin-top:30px;
+}
+#wrap .time span:nth-of-type(1){
+	color:#f6cde1;
+}
+#wrap .time span:nth-of-type(2){
+	margin-left:90px;
+	color:#005eac;
+}
+#wrap .time div,.finsh div{
+	position: relative;
+}
+#wrap .time div p,.finsh div p{
+	height: 20px;
+}
+#wrap .time time,.finsh div time{
+	position: absolute;
+	right: 0;
+}
+/*del*/
+#wrap .del{
+	text-align: right;
+}
+#wrap .del button{
+	width: 80px;
+	height: 30px;
+	background: #EC971F;
+	color: #FFFFFF;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+/*finsh*/
+#wrap .finsh,.del{
+	width: 600px;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+#wrap .finsh p{
+	color:#07D6E4;
+}
